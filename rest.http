@@ -1,0 +1,50 @@
+// USERS
+GET http://localhost:4000/api/v1/users
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGV4IiwiZW1haWwiOiJhbGV4QGdtYWlsLmNvbSIsImlhdCI6MTYyNzcxMDM1MywiZXhwIjoxNjI3NzEwNDEzfQ.7k9tbGbyCXqWfIZccajYLnwR1trt77aKr2zjxXQUDZQ
+###
+POST http://localhost:4000/api/v1/users
+content-type: application/json
+
+{
+  "first_name": "Alex", 
+  "last_name": "Manukyan", 
+  "email": "alex@gmail.com", 
+  "password_hash": "secret"
+}
+###
+POST http://localhost:4000/api/v1/sessions
+content-type: application/json
+
+{"username": "Alex"}
+###
+DELETE http://localhost:4000/api/v1/sessions
+###
+GET http://localhost:4000/api/v1/sessions
+
+// LOTS
+
+###
+GET http://localhost:4000/api/v1/lots
+###
+POST http://localhost:4000/api/v1/lots
+content-type: application/json
+
+{"owner_id": 1, "title": "lot1", "description": "description"}
+###
+PATCH http://localhost:4000/api/v1/lots/1
+content-type: application/json
+
+{"offer_id": 1}
+
+
+
+// OFFERS
+###
+GET http://localhost:4000/api/v1/offers
+ 
+###
+POST http://localhost:4000/api/v1/offers
+content-type: application/json
+
+{"owner_id": 1, "lot_id": 1, "title": "offer1", "description": "description"}
+
