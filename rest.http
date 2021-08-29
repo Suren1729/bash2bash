@@ -31,10 +31,10 @@ content-type: application/json
 
 {"owner_id": 1, "title": "lot1", "description": "description"}
 ###
-PATCH http://localhost:4000/api/v1/lots/1
+PATCH http://localhost:4000/api/v1/lots/1/offers/1
 content-type: application/json
 
-{"offer_id": 1}
+{"is_accepted": true}
 
 
 

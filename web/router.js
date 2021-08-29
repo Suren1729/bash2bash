@@ -25,7 +25,6 @@ const router = require("express").Router();
 
   router.get("/lots", index);
   router.post("/lots", create);
-  router.patch("/lots/:id", update);
 }
 
 {
@@ -33,6 +32,12 @@ const router = require("express").Router();
 
   router.get("/offers", index);
   router.post("/offers", create);
+}
+
+{
+  const { update } = require("./controllers/exchange_controller");
+
+  router.patch("/lots/:lot_id/offers/:offer_id", update);
 }
 
 module.exports = router;

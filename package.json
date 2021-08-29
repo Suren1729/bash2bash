@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "debug": "nodemon --inspect index"
+    "debug": "nodemon --inspect index",
+    "sdc": "sequelize db:create",
+    "sdd": "sequelize db:drop",
+    "sdm": "sequelize db:migrate",
+    "sdmu": "sequelize db:migrate:undo",
+    "sdmua": "sequelize db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",
