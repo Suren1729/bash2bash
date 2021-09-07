@@ -2,8 +2,10 @@ const { Lot, Offer } = require("../models");
 const LotDto = require("./dtos/lot");
 const OfferDto = require("./dtos/offer");
 
-const get_list_lots = async () => {
-  return await Lot.findAll();
+const get_list_lots = async (user_id) => {
+  return user_id
+    ? await Lot.findAll({ where: { id: user_id } })
+    : await Lot.findAll();
 };
 
 const get_lot = async (id) => {
