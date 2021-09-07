@@ -8,10 +8,10 @@ const oauth2 = async (req, res, next) => {
   const access_token = authorization.split(" ")[1];
   if (!access_token) return next(ApiError.Unauthorized());
 
-  // const user = await Oauth.validate_token(access_token, "access");
-  // if (!user) return next(ApiError.Unauthorized());
+  const user = await Oauth.validate_token(access_token, "access");
+  if (!user) return next(ApiError.Unauthorized());
 
-  // req.user = user;
+  req.user = user;
 
   next();
 };

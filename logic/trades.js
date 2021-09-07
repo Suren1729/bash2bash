@@ -36,16 +36,14 @@ const exchange = async (lot_id, offer_id, is_accepted) => {
   const offer = await get_offer(offer_id);
 
   if (is_accepted === true) {
-    const offers = await Offer.findAll({
-      include: { association: "lot", where: { id: lot_id } },
+    const result = await update_lot_and_offer_statuses(lot, offer, {
+      is_accepted: true,
+      status: "success",
     });
 
-    console.log(offers);
-    return "";
-    // return await update_lot_and_offer_statuses(lot, offer, {
-    //   is_accepted: true,
-    //   status: "success",
-    // });
+    reject_offers(lot_id, offer_id);
+
+    return result;
   }
 
   return await update_lot_and_offer_statuses(lot, offer, {
@@ -81,6 +79,19 @@ const update_lot_and_offer_statuses = async (
   return is_accepted === true
     ? { message: `The exchange with ${offer_title} was done` }
     : { message: `The exchange with ${offer_title} wasn't done` };
+};
+
+const reject_offers = async (lot_id, offer_id) => {
+  const offers = await Offer.findAll({
+    include: { association: "lot", where: { id: lot_id } },
+  });
+
+  offers
+    .filter((offer) => offer.dataValues.id !== +offer_id)
+    .map((offer) => {
+      offer.status = "reject";
+      offer.save();
+    });
 };
 
 module.exports = {

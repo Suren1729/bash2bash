@@ -2,10 +2,15 @@ const router = require("express").Router();
 
 {
   const { oauth2 } = require("./middlewares/oauth2");
-  const { index, create } = require("./controllers/user_controller");
+  const {
+    index,
+    create,
+    get_all_lots,
+  } = require("./controllers/user_controller");
 
   router.get("/users", oauth2, index);
   router.post("/users", create);
+  router.get("/users/:id/lots", get_all_lots);
 }
 
 {

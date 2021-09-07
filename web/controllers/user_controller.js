@@ -20,4 +20,15 @@ const create = async (req, res, next) => {
   }
 };
 
-module.exports = { index, create };
+const get_all_lots = async (req, res, next) => {
+  try {
+    const user_id = req.params.id;
+    const list_lots = await Accounts.get_all_lots(user_id);
+
+    return res.json(list_lots);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { index, create, get_all_lots };
