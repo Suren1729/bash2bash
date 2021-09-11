@@ -2,13 +2,26 @@ const Trades = require("../../logic/trades");
 
 const index = async (req, res, next) => {
   try {
-    const lots = await Trades.get_list_lots(req.body);
+    const { user_id } = req.query;
 
-    return res.status(200).json(lots);
+  if (user_id) {
+    const offers = await Trades.get_list_offers(+user_id);
+
+    return res.status(200).json(offers);
+  }
+
+  const offers = await Trades.get_list_offers();
+
+  return res.status(200).json(offers);
   } catch (err) {
     next(err);
   }
 };
+try {
+ 
+} catch (err) {
+  next(err);
+}
 
 const create = async (req, res, next) => {
   try {

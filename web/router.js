@@ -6,11 +6,13 @@ const router = require("express").Router();
     index,
     create,
     get_all_lots,
+    get_all_offers,
   } = require("./controllers/user_controller");
 
   router.get("/users", oauth2, index);
   router.post("/users", create);
   router.get("/users/:id/lots", get_all_lots);
+  router.get("/users/:id/offers", get_all_offers);
 }
 
 {

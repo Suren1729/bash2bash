@@ -31,4 +31,15 @@ const get_all_lots = async (req, res, next) => {
   }
 };
 
-module.exports = { index, create, get_all_lots };
+const get_all_offers = async (req, res, next) => {
+  try {
+    const user_id = req.params.id;
+    const list_offers = await Accounts.get_all_offers(user_id);
+
+    return res.json(list_offers);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { index, create, get_all_lots, get_all_offers };

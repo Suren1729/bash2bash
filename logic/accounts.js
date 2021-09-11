@@ -54,6 +54,17 @@ const get_all_lots = async (user_id) => {
   return list_lots;
 };
 
+const get_all_offers = async (user_id) => {
+  const list_offers = await User.findOne({
+    where: { id: user_id },
+    attributes: ["id", "email", "first_name", "last_name"],
+    include: ["offers"],
+  });
+
+  return list_offers;
+};
+
+
 module.exports = {
   list_users,
   get_user,
@@ -63,4 +74,5 @@ module.exports = {
   refresh_session,
   logout,
   get_all_lots,
+  get_all_offers,
 };

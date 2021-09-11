@@ -52,3 +52,6 @@ content-type: application/json
 
 ###
 GET http://localhost:4000/api/v1/users/1/lots
+
+###
+GET http://localhost:4000/api/v1/users/1/offers

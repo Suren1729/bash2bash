@@ -54,8 +54,10 @@ const exchange = async (lot_id, offer_id, is_accepted) => {
   });
 };
 
-const get_list_offers = async () => {
-  return await Offer.findAll();
+const get_list_offers = async (user_id) => {
+  return user_id
+  ? await Offer.findAll({ where: { id: user_id } })
+  : await Offer.findAll();
 };
 
 const get_offer = async (id) => {
