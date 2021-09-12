@@ -1,6 +1,7 @@
-const { Lot, Offer } = require("../models");
+const { Lot, Offer, LotComment } = require("../models");
 const LotDto = require("./dtos/lot");
 const OfferDto = require("./dtos/offer");
+const LotCommentDto = require("./dtos/lot_comment");
 
 const get_list_lots = async (user_id) => {
   return user_id
@@ -56,8 +57,8 @@ const exchange = async (lot_id, offer_id, is_accepted) => {
 
 const get_list_offers = async (user_id) => {
   return user_id
-  ? await Offer.findAll({ where: { id: user_id } })
-  : await Offer.findAll();
+    ? await Offer.findAll({ where: { id: user_id } })
+    : await Offer.findAll();
 };
 
 const get_offer = async (id) => {
@@ -98,6 +99,18 @@ const reject_offers = async (lot_id, offer_id) => {
     });
 };
 
+const create_lot_comment = async (attrs) => {
+  const comment = await LotComment.create(attrs).then((data) => ({
+    ...new LotCommentDto(data),
+  }));
+
+  return comment;
+};
+
+const get_list_lot_comments = async (lot_id) => {
+  return await LotComment.findAll({ where: { lot_id } });
+};
+
 module.exports = {
   get_list_lots,
   get_lot,
@@ -108,4 +121,6 @@ module.exports = {
   get_offer,
   update_lot,
   exchange,
+  create_lot_comment,
+  get_list_lot_comments,
 };

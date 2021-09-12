@@ -37,4 +37,24 @@ const update = async (req, res, next) => {
   }
 };
 
-module.exports = { index, create, update };
+const get_comments = async (req, res, next) => {
+  try {
+    const lot_comments = await Trades.get_list_lot_comments(+req.params.id);
+
+    return res.json(lot_comments);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const create_comment = async (req, res, next) => {
+  try {
+    const comment = await Trades.create_lot_comment(req.body);
+
+    return res.status(201).json(comment);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { index, create, update, get_comments, create_comment };

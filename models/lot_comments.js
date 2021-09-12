@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class LotComment extends Model {
     static associate(models) {
       LotComment.belongsTo(models.User, {
-        foreignKey: "commenter_id",
+        foreignKey: "commentator_id",
         as: "commenter",
       });
       LotComment.belongsTo(models.Lot, { foreignKey: "lot_id", as: "lot" });
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
-      commenter_id: {
+      commentator_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

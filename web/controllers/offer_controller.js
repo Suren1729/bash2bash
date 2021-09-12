@@ -4,15 +4,15 @@ const index = async (req, res, next) => {
   try {
     const { user_id } = req.query;
 
-  if (user_id) {
-    const offers = await Trades.get_list_offers(+user_id);
+    if (user_id) {
+      const offers = await Trades.get_list_offers(+user_id);
+
+      return res.status(200).json(offers);
+    }
+
+    const offers = await Trades.get_list_offers();
 
     return res.status(200).json(offers);
-  }
-
-  const offers = await Trades.get_list_offers();
-
-  return res.status(200).json(offers);
   } catch (err) {
     next(err);
   }

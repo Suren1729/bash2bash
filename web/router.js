@@ -28,10 +28,19 @@ const router = require("express").Router();
 }
 
 {
-  const { index, create, update } = require("./controllers/lot_controller");
+  const {
+    index,
+    create,
+    update,
+    get_comments,
+    create_comment,
+  } = require("./controllers/lot_controller");
 
   router.get("/lots", index);
   router.post("/lots", create);
+
+  router.get("/lots/:id/comments", get_comments);
+  router.post("/lots/comments", create_comment);
 }
 
 {
