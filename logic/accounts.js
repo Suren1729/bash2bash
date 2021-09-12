@@ -12,11 +12,9 @@ const get_user = async (id) => {
 };
 
 const get_user_by = async (attrs) => {
-  return await User.findOne({ where: { username: attrs.username } }).then(
-    (d) => ({
-      ...new UserDto(d),
-    })
-  );
+  return await User.findOne({ where: { email: attrs.email } }).then((d) => ({
+    ...new UserDto(d),
+  }));
 };
 
 const create_user = async (attrs) => {
@@ -30,8 +28,14 @@ const create_user = async (attrs) => {
 
   return { user, ...tokens };
 };
+
 const authentication = async (attrs) => {
   const user = await get_user_by(attrs);
+  if (!(await argon.verify(user.password_hash, attrs.password))) {
+    return new Error("UNAUTHORIZED");
+  }
+
+  delete user.password_hash;
   const tokens = await Oauth.create_token(user);
 
   return { user, ...tokens };

@@ -9,5 +9,6 @@ module.exports = class UserDto {
     this.first_name = model.first_name;
     this.last_name = model.last_name;
     this.email = model.email;
+    this.password_hash = model.password_hash;
   }
 };
