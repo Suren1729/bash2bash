@@ -17,11 +17,6 @@ const index = async (req, res, next) => {
     next(err);
   }
 };
-try {
- 
-} catch (err) {
-  next(err);
-}
 
 const create = async (req, res, next) => {
   try {
@@ -32,6 +27,7 @@ const create = async (req, res, next) => {
     next(err);
   }
 };
+
 const update = async (req, res, next) => {
   try {
     const offer = await Trades.update_offer(req.params.id, req.body);

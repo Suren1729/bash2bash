@@ -1,3 +1,4 @@
+const argon = require("argon2");
 const { User } = require("../models");
 const UserDto = require("./dtos/user");
 const Oauth = require("./oauth.js");
@@ -17,8 +18,14 @@ const get_user_by = async (attrs) => {
     })
   );
 };
+
 const create_user = async (attrs) => {
-  const user = await User.create(attrs).then((d) => ({ ...new UserDto(d) }));
+  const password_hash = await argon.hash(attrs.password);
+  delete attrs.password;
+
+  const user = await User.create({ ...attrs, password_hash }).then((d) => ({
+    ...new UserDto(d),
+  }));
   const tokens = await Oauth.create_token(user);
 
   return { user, ...tokens };
@@ -63,7 +70,6 @@ const get_all_offers = async (user_id) => {
 
   return list_offers;
 };
-
 
 module.exports = {
   list_users,

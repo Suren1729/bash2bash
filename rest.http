@@ -6,10 +6,10 @@ POST http://localhost:4000/api/v1/users
 content-type: application/json
 
 {
-  "first_name": "Alex", 
+  "first_name": "Max", 
   "last_name": "Manukyan", 
-  "email": "alex@gmail.com", 
-  "password_hash": "secret"
+  "email": "max@gmail.com", 
+  "password": "secret"
 }
 ###
 POST http://localhost:4000/api/v1/sessions
@@ -43,6 +43,9 @@ content-type: application/json
 // OFFERS
 ###
 GET http://localhost:4000/api/v1/offers
+
+###
+GET http://localhost:4000/api/v1/offers?user_id=1
  
 ###
 POST http://localhost:4000/api/v1/offers
