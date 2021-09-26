@@ -1,7 +1,10 @@
+const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const log4js = require("./logger");
+const exphbs = require("express-handlebars");
+const fetch = require("node-fetch");
 
 const logger = log4js.getLogger("EXPRESS");
 const app = express();
@@ -10,7 +13,19 @@ const PORT = 4000;
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+
+app.engine(
+  "hbs",
+  exphbs({
+    defaultLayout: "main",
+    extname: ".hbs",
+  }),
+);
+app.use(express.static(path.join(__dirname, "views/assets")));
+app.set("view engine", "hbs");
+
 app.use("/api/v1", require("./web/router"));
+app.use("/", require("./web/views/router"));
 app.use(require("./web/middlewares/error_middleware"));
 app.use(
   log4js.connectLogger(logger, {
